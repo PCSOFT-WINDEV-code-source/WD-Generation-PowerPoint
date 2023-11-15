@@ -1,0 +1,164 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CSlide
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1a70265500514903
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAAAX3pbjG+/BqrmbIE70qxoSABBdSDDPWfkTfu79eP8JoUxZiCybuhIzKRmpqfyoz+U7IKrNWm8hlizfv269cqVOzAATwt6I+CIbjzpUPelXFagk5k7jTlk2e404N60h7ZGkfbVmE6bhRIlnQ19n/De5i/xJy9jq06uZfxpxxyLhmJMmQ3J1z98kbI1bumwKUA==
+     code : |1+
+      CSlide est une classe
+      	hérite de CElement
+      
+      		
+      GLOBAL
+      	constant 
+      		
+      		//Chemin relatif d'un .xml de slide dans l'archive PPTX
+      		//Les fichiers .xml de slide s'appellent slide1.xml, slide2.xml.. 
+      		CST_CheminRelatifSlide = "ppt\slides\slide%1.xml" 	
+      		CST_NomDocXML = "DocXML_Slide%1"
+      		
+      	fin
+      Fin
+      
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     internal_properties : CAAAAAgAAAAaLOqnyZZdWBbPJOTUxK5TJEiV/K8VYeQhxN576yUAVLChHcZ2tTNf1yk7jHFO3JZlDPx5P1hxAwJsm7bZ/Hwmi8lF5ZBJTH3VygiM3k0twxVHfh4dVFCcx5idOrE4NdMAgvpgxN3IROFI/b3gej4a8pWaLZLj+2H/WAXC2QZz88uaWQFd0D3Xidr2ZjDRWNg6I9KLuw==
+     procedure_id : 1905064788897188099
+     type_code : 27
+     code : |1+
+      Procédure Constructeur(clDocPPTX, nNuméro)
+      
+      //Construit le chemin relatif du fichier XML du slide que l'on va extraire de l'archive (le PPTX)
+      //ChaîneConstruit(CST_CheminRelatifSlide, nNuméro)
+      
+      //Construit un nom de document XML pour manipuler le code XML en mémoire
+      //ChaîneConstruit(CST_NomDocXML, nNuméro)
+      
+      constructeur Celement(clDocPPTX, ChaîneConstruit(CST_CheminRelatifSlide, nNuméro), nNuméro, ChaîneConstruit(CST_NomDocXML, nNuméro))
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1905064788897253635
+     type_code : 28
+     code : |1+
+      Procédure Destructeur()
+      
+     type : 655360
+   -
+     name : RemplitTitre
+     internal_properties : CAAAAAgAAACln96wOQYtXhfrfWM7PqMH0bwO9I9EbMTX6mHJKNGKSDJCmJYFBdCAtnyGQ30xgYGCd0o11UQT52Q0gVWRxzXqVYxmKA7Q5Xwgy0i084RhHUsKI2jmXasJ+CrQITXk9XGSw+6pvCF4U17iaBSMpFig7CgapHT7L4QMcM5z2eKbHvxAAHvu6bvmi3EUCW28N0UxVDiQUaGTJVpYAtrwt/Bh9Kq8RAuTv/i8Wx02VnP/lq16lg==
+     procedure_id : 1905099956093466520
+     type_code : 12
+     code : |1+
+      // Résumé : Définit le titre du slide
+      // Syntaxe :
+      //RemplitTitre (<sLibellé>, <sName>)
+      //
+      // Paramètres :
+      //	sLibellé : Titre à donner au slide
+      //	sName : Nom du titre à changer, celui qui est spécifié dans le XML 
+      // Valeur de retour :
+      // 	Aucune
+      
+      Procédure RemplitTitre(sLibellé, sName)
+      
+      
+      //Recherche du titre dans le code XML
+      sRequêteXPath est une chaine = ChaîneConstruit("//p:sp[p:nvSpPr/p:cNvPr/@name='%1']" + "/p:txBody/a:p/a:endParaRPr", sName)
+      XMLExécuteXPath(m_sNomDocXML, sRequêteXPath)
+      
+      
+      si XMLTrouve(m_sNomDocXML) ALORS
+      		
+      	//Ajoute la balise "<a:r>" avant "<a:endParaRPr.."
+      	// et se positionne dessus pour lui rajouter la balise "<a:t> en fils avec le libellé du titre 
+      	XMLInsèreElément(m_sNomDocXML,"a:r","",XMLElémentPrécédent,vrai)
+      	
+      	sLibellé = ChaîneVersUTF8(sLibellé)
+      	xmlajoutefils(m_sNomDocXML,"a:t",sLibellé)
+      FIN
+      
+      //Parcours terminé, on termine la recherche
+      XMLAnnuleRecherche(m_sNomDocXML)
+     type : 458752
+   -
+     name : RemplitTableau
+     internal_properties : CAAAAAgAAABMYxGTujchEjegIUiOSskm5Uwd/EEyoNqR/Je2X5HOzD78CC5BRA+VjD0McTLxo3VnKCBqFLr5tLZvLIam9GLeHcTd8ZrkbpqTYJpVYWJ3vdzOb3LN4aSXlmnfBEcl90LKna8CTGws+1wd1V1iTaIjJvhn68buzQ6Ub9NWtQsx14BIKYLACDZ3ddwj+elrtbI1qlObCahfzU3ybLVsWhd3xr7Btg==
+     procedure_id : 1905428834625363565
+     type_code : 12
+     code : |1+
+      // Résumé : Remplit un tableau 
+      // Syntaxe :
+      //RemplitTableau (<tabDonnées>, <sName>)
+      //
+      // Paramètres :
+      // 	tabDonnées : Tableau des données à mettre dans le tableau PowerPoint
+      // 	sName : Nom du tableau PowerPoint  tel qu'il apparaît dans le XML du slide 
+      // Valeur de retour :
+      // 	Aucune
+      
+      Procédure RemplitTableau(tabDonnées, sName)
+      
+      sRequêteXPath est une chaine
+      sLibellé est une chaine 
+      
+      //Recherche la ligne et la colonne qui correspond dans le code XML
+      sRequêteXPath = ChaîneConstruit("//p:graphicFrame[p:nvGraphicFramePr/p:cNvPr/@name='%1']" +
+      "/a:graphic/a:graphicData/a:tbl/a:tr/a:tc/a:txBody/a:p/a:endParaRPr", sName)
+      
+      XMLExécuteXPath(m_sNomDocXML,sRequêteXPath)
+      
+      sPositionXML est une chaîne 
+      nPositionLigne est un entier
+      nPositionColonne est un entier
+      i, j sont des entiers
+      tantque xmltrouve(m_sNomDocXML)	
+      	
+      	sPositionXML = XMLPosition(m_sNomDocXML)
+      	nPositionLigne= position(sPositionXML, "a:tr")
+      	i = val (Milieu(sPositionXML,nPositionLigne+5,1) )
+      	nPositionColonne= position(sPositionXML, "a:tc")
+      	j = val(Milieu(sPositionXML,nPositionColonne+5,1) )
+      	si i<0 ou j<0 ou  tableauinfo(tabDonnées, tiDimension, 1) < i ou TableauInfo(tabDonnées, tiDimension, 2) < j alors
+      		XMLSuivant(m_sNomDocXML)
+      		//On n'aura pas de données pour cette ligne et colonne à mettre dans le XML
+      		continuer
+      	FIN
+      	
+      	// Ajoute la balise "<a:r>" avant "<a:endParaRPr.."
+      	// et se positionne dessus pour lui rajouter la balise "<a:t> en fils avec le texte de la ligne et de la colonne correspondant
+      	XMLInsèreElément(m_sNomDocXML,"a:r","",XMLElémentPrécédent,Vrai)
+      	
+      	sLibellé = ChaîneVersUTF8(tabDonnées[i][j])
+      	XMLAjouteFils(m_sNomDocXML,"a:t",sLibellé)	
+      	
+      	xmlsuivant(m_sNomDocXML)
+      FIN
+      
+      
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x1fc4f38711bc1650
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

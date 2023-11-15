@@ -1,0 +1,117 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : WD Génération PowerPoint
+ major_version : 28
+ minor_version : 0
+ type : 4097
+ description : Le projet a pour but de ...
+ subtype : 0
+project :
+ identifier : 0x0
+ internal_properties : CAAAAAgAAAAYq3iojxa/K9WeclQngL2lLSeIIycgApTM42lWbOfOwKBwZhuYBJkNDZaJzkTbgMJFf6nk1SfwV4gPM8Qv3bV81oQoVggxrYBY33esZSpn9pdpa8kErRPICkYxgtKsdnWZUWomooYoVHgBL9m6YbGfwIre7W0a+iMbYTI8XoasyBiOq1VfO/lJNqEixT/gKWl92dAPvQd9TsYNCfi955iexkcBkCuG9p726c5LEHGotIZQ3vnMUBgFhNtMQFIhXbTUUyJdC2khDYP8DkcVFFkFxMxYG1+6zg//4qVgVAyKl2pApSZ14sx6Uou/wJOz9tr1LorzlPWd6/Zx7Na6T3c3ESyd4xPHRUTJ9OIg66hPM1raHwyMMmcTLbvPj9m1kjemCjncS6BAa/VT2bZVvsAis6Bq6AR8NaKEFi4/Z/IL/zOQ9Fk9hnIwh5W1rpC9/ZWkk4oeGrhoCAOkWNBqyz7NSqV3csxHy+JK34JbsdoI6iDvTPhbOycHWE7iprfkOmheaJxUCqgkdAnhxhwQJwmC8RQHmgYP0sfmUoJ9W3ylPJ4MFvAP64UQBk/JnVSwDpGPO46VgCsMqaRxrjmgLGsEepY8wnAJyEOb1GBnEWZwGtqvnN2teuB9axyddXFs65PpW3wlq1Ab+K7KGCernsAn9UV2c6gPzWy/hmDRSEvN5Ax3IEXN5rDw0Jl7BrsOHc3OfQdajVrcgCs80HvYhaUnlineh96iy3vcMRoUD3/KUBNb3vPHneIegYr9pp1k2b+OutxVs46sQo7PEJPD/b4cdy+8JJzUoVtuiRPE5h0aCsfJE/fWnSDNmzydW5a6yKgz3CWBXJVUdRoZdiCPEBCn/q36kSuEg3k3KZnrZCvturlr6d+asMa9dhRwd0AD6nJZfQ79tcnpWqXc6bSOFzKdDrVMLTlA12Yd+mjCzrnSkhcJQbe2uI627SSNQsDz87iaxB7S1Vw3IRfm22eHdS93lBLl+BLp5HqFjhuBjJNgTYBE8ppjUQX9AsrIUS0K2LUzYyhOT07IBXmNIn3RqIqSorU0levQCQg7UvTYX9YheLVUF4ldB0cLvefnbCsmeB9cxWZWCYhL9Vcjc9M4CAW2iCsiuXfEacfu+ZQDhHjOULtZIJFnzpwFlK93lLNBSJ0hrOM+2VII2V0K6UPB34ch1I5uCaviOnawjivu4hGl4gIK3RygiAva4YW4fcOOovohy7rhDV9Hqz4vhSFv9YF7yvndiKLVniFYnP6/hlyltNJDo+ldbGZMQANmpk0Pohd98GR/lXmvZftG3khMaa7tZySMjml0FHM3I3yY3qMYDegyjHfrLwSqrFMdpRc9dDoQ49qHcgySqfE7O2YcuQiVE/sfR7mR0/hPcfV3jx6vZFducOdGuAMw9Pt6qFcF9tqCvXO8Rs2QuKpHmbHxy9ZpBoDZ/1B+MPdpMgQ+NOWUYk3+OBG99TrktXAgxk69G4AUD8OugAvfMDQgjBBflLx8thq/DGAqXVXRXZP0NFdm5diCCeJh+uQZcP20BO9OTqQbOtgrr435UUZhvwm7CR1gfRxD6XdAs6PnSsjmx3e0V27G90eVBpj3+/32msYTfm6l5WdX4h/L9mwO2/JA0q9mNznHipiDKRGxuuapu9W4BXr8ZXOhW6XlRepT0m8axPUE/rycqcbgCAi0WCd30imslNLfG7exMRaZyMFag9IlIo0GPC0MK+WemcN1ITTp59AKx7xJNZxbQd6fqVT/KAassYbL466gKhpH+Rdaf2ZCrMNi+FMGXd9UGDUxx/1hZFLNspboFuH/aATA1NampNyGVegPV3vkzmm1OKZB7HbnMbXlkEoUlxi8tLOZbXJEn9f6MsFNJCZ2eXdY8rjyZuG1hfb5kpE8B77IiNyqiBOZcJr5cqJXBA9E4Pj4pRGm4TOIRVnoTlCoMCyaTcGZ/cCEi3qsqQfmbbX5lk+343aIQPQtF4ZiaD/ulqrAfJwkOQ8zZuANZL72K1tDEagwGq1e/yau7IyvlTrq6gkN2kypCRnUJg4AXAKn6eYzizoa81Io2Q4KOgOi169IGON6iGfIGgkOCtQoYR2swi5WxSz7CA==
+ configurations :
+  -
+    name : WD Génération PowerPoint
+    internal_properties : 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
+    configuration_id : 5684603682081985987
+    type : 1
+    generation_name : WD Génération PowerPoint.exe
+    version :
+     major_version : 22
+     minor_version : 1
+     generation_version : 1
+     revision_version : 1
+     internal_generation_version : 1
+     autoincrement_version : false
+    icon_filename : .\PowerPoint.ico
+    language : 1
+    new_features_help :
+     name : ""
+     internal_properties : CAAAAAgAAADUkiT4wpfAsw/yRmG3Py8Ek1SP9w53yrLtXjrX78dDCTU1kCWLVUKyLE+LVzmEyPJWd6WRVwgQmljhDIc=
+ elements :
+  identifier : 0x4c7e101d00176fa4
+  elements :
+   -
+     name : Procedures globales de WD Génération PowerPoint
+     identifier : 0x4a70217f00006653
+     internal_properties : CAAAAAgAAACutIaaKVbekVmrfhXDEnDqQD2/d03mzZCvGGtAEg2HeU+jbp90lFdV+iGbZS2jX1G7uw==
+     physical_name : .\Procedures globales de WD Génération PowerPoint.wdg
+     type : 7
+   -
+     name : CGraphe
+     identifier : 0x4a705a59000a75e1
+     internal_properties : CAAAAAgAAAAdeXUplsNrdMIQo94EXKOhm/jmvgDRbM23Lh/c1EvLNY9hru87zY4Kr5YA+Lgo0MAICA==
+     physical_name : .\CGraphe.wdc
+     type : 4
+   -
+     name : FEN_Exemple
+     identifier : 0x4a703de000053e2c
+     internal_properties : CAAAAAgAAADAvjhkQzhwq7f1LKe9tsYkqiuhuSNkG/Jf7PM4PsFLjU+XNlfCRgWD1Eu1A4N9BfvFTQ==
+     physical_name : .\FEN_Exemple.wdw
+     type : 2
+   -
+     name : CElement
+     identifier : 0x4a705c18000c4a20
+     internal_properties : CAAAAAgAAAAlIQ0RrstjfMoIa2b89gf1GwRWhjyNUUC3xsV2op1xtx3jhJmDhUZCl44I8LAg2MgwMA==
+     physical_name : .\CElement.wdc
+     type : 4
+   -
+     name : CSlide
+     identifier : 0x4a7026390004daa8
+     internal_properties : CAAAAAgAAACB/fktmsdvAM4cr9oAW5+V7+K+ZlqLo26zl9QnGQaUfHhUn/4v0YoGq5IM9Lw0zDyEjA==
+     physical_name : .\Slide.wdc
+     type : 4
+   -
+     name : TEST_Exemple
+     identifier : 0x4c7e11a2003b5ccf
+     internal_properties : CAAAAAgAAABRrYmdKlffkF6sfwrQzA/9FwRSilzVz46vmO/EjJN7vR/hjo+foVpW+yKcZCykXEy0vA==
+     physical_name : .\TEST_Exemple.wxt
+     type : 17
+   -
+     name : CDocumentPPTX
+     identifier : 0x4a7022f100020974
+     internal_properties : CAAAAAgAAAA4FmC8izB4o6+9xH/lgs4UsiO5ETvkjfhfLAc0Eh1/eUODKlPabi2rDDOtC4tFPbMdJQ==
+     physical_name : .\DocumentPPTX.wdc
+     type : 4
+  other_elements :
+   -
+     physical_name : .\description.gif
+   -
+     physical_name : .\description.rtf
+  net_assemblies : []
+  uwp_api : []
+  external_components : []
+  internal_components : []
+ report_and_queries_enabled : false
+ common_generation_directory : true
+ languages :
+  - fr-FR
+ code_elements :
+  internal_properties : CAAAAAgAAAAySygPcZ4GJX0P6OaZtGImf6VeIpQpJLYsyy6IpEyeB4oR6+2AWanMnxYyL8kUO6ZLoCf7gRyLXo4A3BCx9g==
+  type_code : 0
+  p_codes :
+   -
+     type : 196621
+   -
+     type : 196627
+     enabled : false
+  orphans :
+   -
+     name : WD Génération PowerPoint
+     identifier : 0x4c7e101e001f709d
+     code_elements :
+      type_code : 159
+      p_codes : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+rad :
+ internal_properties : CAAAAAgAAABhIL0UXeZmxDJxY3Xy0Q==
+project_explorer :
+ explorer_type : project
+resources :
+ string_res :
+  identifier : 0x0
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAAAd98VSJfHHqE3P0QHwrwdhn7ig8dWBR6valpUTgnAMTVXiDg==

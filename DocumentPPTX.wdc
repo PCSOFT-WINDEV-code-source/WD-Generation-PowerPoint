@@ -1,0 +1,268 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CDocumentPPTX
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1a70265900545949
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CDocumentPPTX est une classe
+      	
+      	m_sCheminFichier est une chaine // Chemin du fichier modèle PPTX 
+      
+      	m_sListeFichiers est une chaine //Liste des fichiers contenu dans le .PPTX
+      	m_nNbreSlides est entier
+      	m_nNbreGraphes est un entier
+      Fin
+      
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     internal_properties : CAAAAAgAAAC7FKRwn1RBN8iPYCF+p5RwC6Of0WSGXwRkx9MQR7DDAtnQ6u31NTnsBN9CUD+TQkH/xfV/5emzpe3Z7eRbCoJPe0oPbBftgeOj1mzJ62sctZOzLjfdcU1vA/FYrVVAtRqkxNhVLBwHL3E9bOpi7gNy6/2gpKt1eUeHyas6uPAuYOGWYzFN2ER2gvXTkFe+EhaZrMrTSiatqpnTu82FbKCerw==
+     procedure_id : 1905064806077258057
+     type_code : 27
+     code : |1+
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure Constructeur(sCheminFichier)
+      
+      sCheminFichierGénéré est une chaine = fExtraitChemin(sCheminFichier,fDisque+fRépertoire+fFichier)+"_Généré" +
+      fExtraitChemin(sCheminFichier, fExtension)
+      
+      fCopieFichier(sCheminFichier, sCheminFichierGénéré)
+      
+      m_sCheminFichier = sCheminFichierGénéré
+      
+      //Attente .. le temps de la copie
+      Multitâche(-1)
+      
+      //Récupère la liste des fichiers du .PPTX
+      ListeFichiersPPTX()
+      
+      //Récupère le nombre de slides du .PPTX
+      NbreSlides()
+      
+      //Récupère le nombre de graphes du .PPTX
+      NbreGraphes()
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1905064806077323593
+     type_code : 28
+     code : |1+
+      Procédure Destructeur()
+      
+     type : 655360
+   -
+     name : DéfinitTitreSlide
+     internal_properties : CAAAAAgAAAA1uACuileJncYDxzEuARkTOXUv9iHV+3ZiSFZqkoRerVqsIXw2zVtpdDphHeXHIAzAzV0C/9nmPEvrqoRRjfI3edMlBpbDP2bxAMK2nHLn+vGBzPmyAtQqLYup/45NhCwsBTwiuR+VUieOJj350VUNDyaeG+5Up7dLZp25wt3Vwq7u+NmxcoL+Hri3S4sqdfqUAwW5iOtIPEJ33bKVm31LuldXyZEEmb93YYa9EUQmHSoNTDd+8hyk4mC8wf/i6eRolHLO8auXTJw4wal74uYQWkclcuf3YFgOwzetubsKKQ==
+     procedure_id : 1905067735245242624
+     type_code : 12
+     code : |1+
+      // Résumé : Permet de remplir un slide N du document PPTX à partir d'un contenu de champs WINDEV
+      // Syntaxe :
+      //DéfinitTitreSlide (<nNuméroSlide>, <sTitre>, <sName>)
+      //
+      // Paramètres :
+      //	nNuméroSlide : Numéro du slide dont on veut remplir le contenu
+      //	sTitre : Titre à donner
+      //	sName : Nom du titre tel qu'il est dans le modèle PPTX à remplir
+      // Valeur de retour :
+      // 	Aucune
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure DéfinitTitreSlide(nNuméroSlide, LOCAL sTitre, sName)
+      
+      //Si le numéro passé en paramètre n'est pas valide, inutile de continuer
+      si nNuméroSlide < 0 ou nNuméroSlide > m_nNbreSlides alors
+      	erreur("Le numéro de slide à modifier passé en paramètre n'est pas valide.",
+      	ChaîneConstruit("Nous comptons %1 slides dans le modèle PowerPoint choisi.", m_nNbreSlides) )
+      	retour
+      FIN
+      
+      //Création d'un nouvel objet Slide 
+      clNouveauSlide est un CSlide(objet, nNuméroSlide)
+      
+      //Ecriture dans le slide
+      clNouveauSlide.RemplitTitre(sTitre, sName)
+      
+      clNouveauSlide.Ecrit()
+     type : 458752
+   -
+     name : ListeFichiersPPTX
+     procedure_id : 1905130665111737110
+     type_code : 12
+     code : |1+
+      // Résumé : Liste tous les fichiers du PPTX
+      // Syntaxe :
+      //ListeFichiersPPTX ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      
+      Procédure ListeFichiersPPTX()
+      
+      sNomArchive est une chaine = "Archive"
+      
+      //Ouverture de l'archive
+      zipOuvre(sNomArchive,m_sCheminFichier)
+      
+      //Récupération de la liste de tous les fichiers du PPTX
+      m_sListeFichiers = zipListeFichier(sNomArchive)
+      
+      Fin :
+      //Fermeture de l'archive
+      zipFerme(sNomArchive)
+     type : 458752
+   -
+     name : NbreSlides
+     internal_properties : CAAAAAgAAACxCVOvz3cQLxwppcKvTzRMOu2lYThvN6IR1Kj7Rr9HRE7DJ2XpqHNYaArHm5lX4m1LOuriIb7xc54Wta3bbB083IzO6fPU0SCTqJIaRmrxVnuEHZj1uWjbChVzusuh17LUl9FArEwWpZrHdfHewXoLMKqFP7DEp2hy8dN8sccv6rVtimOb5SeuvGu6GrYZUFDop7tK
+     procedure_id : 1905131597119725862
+     type_code : 12
+     code : |1+
+      // Résumé : Définit le nombre de slides, de diapositives, présents dans le .pptx
+      // Syntaxe :
+      //NbreSlides ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      
+      Procédure NbreSlides()
+      
+      nNbreSlides est un entier 
+      
+      pour TOUTE CHAINE sFichier DE m_sListeFichiers SEPAREE PAR rc
+      	si majuscule(sfichier) [= "PPT\SLIDES\SLIDE" _et_ majuscule(fextraitchemin(sfichier, fExtension)) =".XML" alors
+      		nNbreSlides++		
+      	FIN
+      FIN
+      
+      m_nNbreSlides = nNbreSlides
+     type : 458752
+   -
+     name : NbreGraphes
+     internal_properties : CAAAAAgAAAC3C1GtwC0mvZhNZ/4b02wMArVlNxY1Odz9sAaPmrN3bK4ba18zCsU+OMJRL73/Oq0jks6UW/B3tY42N3m/1I2soNj6Yz0OL+rXrBHhB6nOgY7nuJvWmE/A3wr6IURQRG3vijj3WY85TnPIIHSz3Id2m33s9i1HGt136v5vTmJogVTMecKASHIzwVAVxWNEbU7mpblM
+     procedure_id : 1905134831230197672
+     type_code : 12
+     code : |1+
+      // Résumé : Définit le nombre de graphes présents dans le .pptx
+      // Syntaxe :
+      //NbreGraphes ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      
+      Procédure NbreGraphes()
+      
+      nNbreGraphes est un entier 
+      
+      pour TOUTE CHAINE sFichier DE m_sListeFichiers SEPAREE PAR rc
+      	SI Majuscule(sFichier) [= "PPT\CHARTS\CHART" _ET_ Majuscule(fExtraitChemin(sFichier, fExtension)) =".XML" ALORS
+      		nNbreGraphes++		
+      	FIN
+      FIN
+      
+      m_nNbreGraphes = nNbreGraphes
+     type : 458752
+   -
+     name : DéfinitDonnéesGraphe
+     internal_properties : CAAAAAgAAAC6ulwGsChdSIcGS67+44yrzyBFeSixBCaNk697YaO+C/M48G2BQUcnkrITcYFe3ygzYBtjh/vHvkXSIOtNVpVZgm0wnagc9QpzUyCGI7ZzexjX6iPTI3/FDX89bJIFENe02/mthXkffmeDqw==
+     procedure_id : 1905162460755151177
+     type_code : 12
+     code : |1+
+      // Résumé : Détermine les données d'un graphe 
+      // Syntaxe :
+      //DéfinitDonnéesGraphe (<nNuméroGraphe>, <tabLibSéries>, <tabLibCatégories>, <tabDonnées>)
+      //
+      // Paramètres :
+      //	nNuméroGraphe : Numéro du graphe à modifier
+      // 	tabLibSéries : Tableau contenant le libellé des séries
+      // 	tabLibCatégories : Tableau contenant les libellés des catégories
+      // 	tabDonnées : Tableau des données du graphe
+      // Valeur de retour :
+      // 	Aucune
+      
+      Procédure DéfinitDonnéesGraphe(nNuméroGraphe, tabLibSéries, tabLibCatégories, tabDonnées)
+      
+      
+      //Si le numéro passé en paramètre n'est pas valide, inutile de continuer
+      SI nNuméroGraphe < 0 OU nNuméroGraphe > m_nNbreGraphes ALORS
+      	Erreur("Le numéro de graphe passé en paramètre n'est pas valide.",
+      	ChaîneConstruit("Nous comptons %1 graphes dans le modèle PowerPoint choisi.", m_nNbreSlides) )
+      	RETOUR
+      FIN
+      
+      
+      //Création d'un nouvel objet Graphe 
+      clNouveauGraphe est un cgraphe(objet, nNuméroGraphe)
+      
+      //Ecriture dans le graphe
+      clNouveauGraphe.RemplitGraphe(tabLibSéries, tabLibCatégories, tabDonnées)
+      clNouveauGraphe.Ecrit()
+      
+     type : 458752
+   -
+     name : DéfinitDonnéesTableau
+     internal_properties : CAAAAAgAAAA1uACuileJncYDxzEuARkTOXUv9iHV+3ZiSFZqkoRerVqsIXw2zVtpdDphHeXHIAzAzV0C/9nmPEvrqoRRjfI3edMlBpbDP2bxAMK2nHLn+vGBzPmyAtQqLYup/45NhCwsBTwiuR+VUieOJj350VUNDyaeG+5Up7dLZp25wt3Vwq7u+NmxcoL+Hri3S4sqdfqUAwW5iOtIPEJ33bKVm31LuldXyZEEmb93YYa9EUQmHSoNTDd+8hyk4mC8wf/i6eRolHLO8auXTJw4wal74uYQWkclcuf3YFgOwzetubsKKQ==
+     procedure_id : 1905436110300345910
+     type_code : 12
+     code : |1+
+      // Résumé : Permet de remplir un slide N du document PPTX à partir d'un contenu de champs WINDEV
+      // Syntaxe :
+      //DéfinitDonnéesTableau (<nNuméroSlide>, <tabDonnées>, <sName>)
+      //
+      // Paramètres :
+      //	nNuméroSlide : Numéro du slide dont on veut remplir le contenu
+      //	tabDonnées : Titre à donner
+      //	sName : Nom du titre tel qu'il est dans le modèle PPTX à remplir
+      // Valeur de retour :
+      // 	Aucune
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure DéfinitDonnéesTableau(nNuméroSlide,tabDonnées, sName)
+      
+      //Si le numéro passé en paramètre n'est pas valide, inutile de continuer
+      si nNuméroSlide < 0 ou nNuméroSlide > m_nNbreSlides alors
+      	erreur("Le numéro de slide à modifier passé en paramètre n'est pas valide.",
+      	ChaîneConstruit("Nous comptons %1 slides dans le modèle PowerPoint choisi.", m_nNbreSlides) )
+      	retour
+      FIN
+      
+      //Création d'un nouvel objet Slide 
+      clNouveauSlide est un CSlide(objet, nNuméroSlide)
+      
+      //Ecriture dans le slide
+      clNouveauSlide.RemplitTableau(tabDonnées, sName)
+      
+      clNouveauSlide.Ecrit()
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x1fc4f38711a01631
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

@@ -1,0 +1,134 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CElement
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1a705bf300adb7ff
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAADd9ByemUuUZycEdQeoLIjVJL7cGl/9aUEh4jSaFmlfeVhlPRUMu5EfyiG6e7VkGQSLT+n3rCV6nzB5zcYfR3fUNZmNFVSjXQPJMp7jnSuS2fMoWaNde13ktT6LpYMb6iyRPSqoimvnluot2fJXjtS8s2pmYpSlzp7r7ABFYVdS0Q==
+     code : |1+
+      CElement est une classe
+      	
+      	m_nNuméro est un entier 		//Numéro du slide ou du graphe
+      	
+      	m_sNomFichierXML est une chaine //Chemin relatif du fichier XML du graphe dans l'archive
+      	m_bufContenuSlide est un buffer //Buffer contenant le fichier .xml extrait en mémoire (slide ou graphe par exemple)
+      	m_sNomDocXML est une chaine		//Nom du document XML en mémoire pour manipuler le code XML du fichier XML graphe 
+      	
+      	m_pclDocParent est un CDocumentPPTX dynamique  	//Document PPTX parent auquel il appartient
+      Fin
+      
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1905123741624350719
+     type_code : 27
+     code : |1-
+      Procédure Constructeur(clDocPPTX, sNomFichierXML, nNuméro, sDocXML)
+      
+      m_pclDocParent = clDocPPTX
+      m_sNomFichierXML = sNomFichierXML
+      m_nNuméro = nNuméro
+      m_sNomDocXML = sDocXML
+      
+      CréeDocXML()
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1905123741624416255
+     type_code : 28
+     code : |1+
+      Procédure Destructeur()
+      
+     type : 655360
+   -
+     name : CréeDocXML
+     internal_properties : CAAAAAgAAADxFUZJEsjavlUC3+aVXPWEr2s7eslGGewzVty8nJ9DyRH6ucuVymV7oGcoRGx/+pdJctg2le0zoHHt+zV6l9KJ84o48BrhIxYxKTm+6gOZErz3lb7yNUMg0/BYDLkrRoyEk/4ueV3lb+Me6sve4QBm+xr2C86s/wubNulltpmVbLlxdYR0M7yuKPIrN8vred7dRyzCdfWHxoWsCW7ZBQgRd9lP2uF+LVfvMglDdED0ew==
+     procedure_id : 1905152908747691977
+     type_code : 12
+     code : |1-
+      // Résumé : Récupération en mémoire du code XML du slide du modèle PPTX (qui n'est rien d'autre qu'une archive ZIP)
+      // Syntaxe :
+      //CréeDocXML ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure CréeDocXML()
+      
+      sNomArchive est une chaine = "Archive"
+      
+      //Ouverture de l'archive
+      zipOuvre(sNomArchive,m_pclDocParent.m_sCheminFichier)
+      
+      //Extraction du fichier XML du slide 
+      m_bufContenuSlide  = zipExtraitFichier(sNomArchive,m_sNomFichierXML, zipEnMémoire)	
+      
+      //Fermeture de l'archive
+      zipFerme(sNomArchive)
+      
+      //Création du document XML pour manipulation en mémoire
+      XMLDocument(m_snomDocXML, m_bufContenuSlide)
+     type : 458752
+   -
+     name : Ecrit
+     internal_properties : CAAAAAgAAAAKHMJfZVAcGpAesQItT2EDvon8+OncwfOpuWI6Fjkmc6hC9VDM4m7u6x0jiQeaPwZXZy7li1WtW3fwGYUr2iZhFMIswejVdTrm6KhmTPkjNHDX9ZN1HqAt9FyiPEVcltsNhNTf44wEC38vKwnI/x1GxRDZ2auFgB36kzxRYn0AKIcD+mjratUYw4sKk/891anwI8aBaxqxwLGs6DARn6pr4kNukRIVft3y8dJBTBbRnSs3q0UFnqsAXWzjLC5IiUcvdieXc1121I2rPi29P7oVFvMV7g==
+     procedure_id : 1905160875912177456
+     type_code : 12
+     code : |1-
+      // Résumé : Ecriture effective dans le fichier XML du slide des modifications apportées
+      // Syntaxe :
+      //Ecrit ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure Ecrit()
+      
+      //Ecriture effective des modifications faites en mémoire pour le slide, dans le fichier XML
+      m_bufContenuSlide = XMLConstruitChaîne(m_sNomDocXML)
+      
+      
+      //**************** Mise à jour du fichier dans l'archive ****************//
+      sNomArchive est une chaine = "Archive"
+      //Ouverture de l'archive
+      zipOuvre(sNomArchive,m_pclDocParent.m_sCheminFichier)
+      //Suppression du fichier initial du slide
+      zipSupprimeFichier(sNomArchive, m_sNomFichierxml)
+      //Ajout du nouveau fichier pour le slide
+      zipAjouteFichier(sNomArchive, m_bufContenuSlide, zipEnMémoire, m_sNomFichierxml)
+      //Fermeture de l'archive
+      zipFerme(sNomArchive)
+      
+      //Ferme le document XML
+      XMLTermine(m_sNomDocXML)
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x1fc4f38711b01640
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

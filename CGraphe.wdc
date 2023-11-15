@@ -1,0 +1,168 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CGraphe
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1a705a2600a6b16a
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAADZpcU9P8EO/SAYuSq0CF5tPHQmHMvLOOmpImQ6hlnf6YiljdUM6yH/qlEaC9VESWRrfylnfOV6j+A5fSbvt5cEjWHVXcz7lTvRSvZblZMacavQ4WvVMxUcnVYD3XujcqRJhdJwImP/thLUcG9C48Hvlr03aRS9btOoFQcOoYJW1Q==
+     code : |1+
+      CGraphe est une classe
+      	hérite de celement
+      
+      
+      GLOBAL
+      	CONSTANT 
+      		
+      		//Chemin relatif d'un .XML de graphe dans l'archive PPTX
+      		//Les fichiers .xml de graphe s'appellent chart1.xml, chart2.xml.. 
+      		CST_CheminRelatifGraphe = "ppt\charts\chart%1.xml" 	
+      		CST_NomDocXML = "DocXML_Chart%1"
+      	FIN
+      Fin
+      
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1905121761643966826
+     type_code : 27
+     code : |1+
+      Procédure Constructeur(clDocPPTX, nNuméro)
+      
+      //Construit le chemin relatif du fichier XML du graphe que l'on va extraire de l'archive (le PPTX)
+      //ChaîneConstruit(CST_CheminRelatifGraphe, nNuméro)
+      
+      //Construit un nom de document XML pour manipuler le code XML en mémoire
+      //ChaîneConstruit(CST_NomDocXML, nNuméro)
+      
+      constructeur Celement(clDocPPTX, ChaîneConstruit(CST_CheminRelatifGraphe, nNuméro), nNuméro, ChaîneConstruit(CST_NomDocXML, nNuméro))
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1905121761644032362
+     type_code : 28
+     code : |1+
+      Procédure Destructeur()
+      
+     type : 655360
+   -
+     name : RemplitGraphe
+     internal_properties : CAAAAAgAAADdXikGa3ATK39smGJcnHMMMuTpR8aUpK8r9eJfw+rBLfbIiyh5hKIa00fdc6X0rFsdeY3N9ACzCwyARwYpiJmMU7i56yO+MGntC9tcCugOoUO4lBbWq123RLuJTOmDp9L8f/102AjAD5Ax+XuG8XZnZF5xJbJqQ0SO3e96XWtRdVRe4awUQHuCySSZWMMJKr9z76ehQf/Zbc2G18ClmVvjA1aFDvTr7NI0QsxZG1f/R5CzsIc=
+     procedure_id : 1905153037596806376
+     type_code : 12
+     code : |1+
+      // Résumé : Remplit un graphe PowerPoint de base avec des données passées en paramètre
+      // Syntaxe :
+      //RemplitGraphe (<tabLibSéries>, <tabLibCatégories>, <tabDonnées>)
+      //
+      // Paramètres :
+      //	tabLibSéries : Tableau des libellés des séries 
+      //	tabLibCatégories : Tableau des libellés de catégories
+      //	tabDonnées : Tableau des données du graphe (2 dimensions : les séries puis les catégories)
+      // Valeur de retour :
+      // 	Aucune
+      
+      Procédure RemplitGraphe(tabLibSéries, tabLibCatégories, tabDonnées)
+      
+      sRequêteXPath est une chaine
+      sLibellé est une chaîne
+      
+      XMLRacine(m_sNomDocXML)
+      
+      //Renseigne les libellés des séries dans le code XML du graphe 
+      pour i = 1 _à_ tabLibSéries..Occurrence
+      	
+      	//	<c:ser>
+      	//	<c:idx val="0"/>
+      	//Recherche, dans le code XML, de la série dont le "val" = i-1
+      	sRequêteXPath = ChaîneConstruit("//c:ser[c:idx/@val='%1']" + "/c:tx/c:strRef/c:strCache/c:pt/c:v", i-1)
+      	XMLExécuteXPath(m_sNomDocXML, sRequêteXPath)
+      	
+      	//Si on trouve, on applique le libellé
+      	SI XMLTrouve(m_sNomDocXML) ALORS
+      		sLibellé = ChaîneVersUTF8(tabLibSéries[i])
+      		XMLModifie(m_sNomDocXML,sLibellé)
+      	FIN
+      	
+      	//Parcours terminé, on termine la recherche
+      	XMLAnnuleRecherche(m_sNomDocXML)
+      	
+      FIN
+      
+      XMLRacine(m_sNomDocXML)
+      
+      //Renseigne les libellés des catégories dans le code XML du graphe 
+      pour i = 1 _a_ tabLibCatégories..Occurrence
+      	
+      	//Recherche, dans le code XML, de tous les endroits où se trouvent les libellés de catégorie
+      	//Les noms des catégories sont re-spécifiés pour chaque série
+      	sRequêteXPath  = ChaîneConstruit("//c:cat/c:strRef/c:strCache/c:pt[@idx='%1']" + "/c:v", i-1)
+      	XMLExécuteXPath(m_sNomDocXML, sRequêteXPath)
+      	
+      	tantque XMLTrouve(m_sNomDocXML)
+      		
+      		sLibellé = ChaîneVersUTF8(tabLibCatégories[i])
+      		
+      		//Modification de la valeur de "<c:v>"
+      		XMLModifie(m_sNomDocXML,sLibellé)
+      		
+      		XMLSuivant(m_sNomDocXML)
+      	FIN
+      	
+      	//Parcours terminé, on termine la recherche
+      	XMLAnnuleRecherche(m_sNomDocXML)
+      fin
+      
+      
+      XMLRacine(m_sNomDocXML)
+      
+      
+      //Renseigne les données dans le code XML du graphe => parcours les séries
+      POUR i = 1 _à_ tabLibSéries..Occurrence
+      	
+      	// Parcours les catégories
+      	pour j = 1 _a_ tabLibCatégories..Occurrence
+      		//	<c:ser>
+      		//	<c:idx val="0"/>
+      		//Recherche, dans le code XML, de la série dont le "val" = i-1
+      		sRequêteXPath = ChaîneConstruit("//c:ser[c:idx/@val='%1']" + "/c:val/c:numRef/c:numCache/c:pt[@idx='%2']"+ "/c:v", i-1, j-1)
+      		XMLExécuteXPath(m_sNomDocXML, sRequêteXPath)
+      		
+      		//Si on trouve, on récupère la valeur de l'attribut "idx" de la balise "c:pt" pour savoir sur quelle catégorie on est
+      		tantque XMLTrouve(m_sNomDocXML) 
+      		
+      			sLibellé = ChaîneVersUTF8(tabDonnées[i][j])
+      			
+      			XMLModifie(m_sNomDocXML,sLibellé)
+      			
+      			XMLSuivant(m_sNomDocXML)
+      		FIN
+      	fin
+      	//Parcours terminé, on termine la recherche
+      	XMLAnnuleRecherche(m_sNomDocXML)
+      	
+      FIN
+      
+      
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x1fc4f38711c7165f
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
